@@ -248,7 +248,7 @@ def train():
         # adv_images = adv_images.detach()
         pred_fake = net_Dis(encoded_images.detach())
         loss_fake, loss_real = dis_loss(pred_fake, pred_real)
-        loss_D = (loss_real + loss_real) * 1.0
+        loss_D = (loss_real + loss_fake) * 1.0
         loss_D.backward()
         optim_Dis.step()
 
