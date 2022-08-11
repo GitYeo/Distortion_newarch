@@ -9,6 +9,7 @@ class RandomMask(nn.Module):
         self.rate = rate
 
     def forward(self, x):
+        out = torch.zeros_like(x)
         num, _, h, w = x.shape
         for i in range(num):
             mask_h = int(h * (np.random.rand() * (self.rate[0][1] - self.rate[0][0]) + self.rate[0][0]))
@@ -25,7 +26,7 @@ class RandomMask(nn.Module):
             mask = torch.zeros_like(x[i])
             mask[:, h_start: h_end, w_start: w_end] = 1
 
-            x[i] = x[mask_id] * mask + x[i] * (1 - mask)
+            out[i] = x[mask_id] * mask + x[i] * (1 - mask)
             
-        return x
+        return out
             
