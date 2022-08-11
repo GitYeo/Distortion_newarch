@@ -4,7 +4,7 @@ import numpy as np
 
 
 class RandomMask(nn.Module):
-    def __init__(self, rate=((0.2, 0.4), (0.2, 0.4))):
+    def __init__(self, rate=((0.2, 0.5), (0.2, 0.5))):
         super(RandomMask, self).__init__()
         self.rate = rate
 
@@ -26,7 +26,7 @@ class RandomMask(nn.Module):
             mask = torch.zeros_like(x[i])
             mask[:, h_start: h_end, w_start: w_end] = 1
 
-            out[i] = x[mask_id] * mask + x[i] * (1 - mask)
+            out[i] = x[i] * mask + x[mask_id] * (1 - mask)
             
         return out
             
